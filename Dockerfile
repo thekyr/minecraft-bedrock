@@ -1,4 +1,4 @@
-FROM --platform=linux/amd84 debian:bullseye-slim
+FROM --platform=linux/amd64 debian:bullseye-slim
 
 # Install necessary packages and dependencies
 RUN apt-get update && \
