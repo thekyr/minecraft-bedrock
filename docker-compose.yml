@@ -1,0 +1,39 @@
+version: '3.8'
+
+volumes:
+  minecraft_worlds:
+    driver: local
+  minecraft_backups:
+    driver: local
+  minecraft_whitelist:
+    driver: local
+  minecraft_permissions:
+    driver: local
+  minecraft_mods:
+    driver: local
+
+services:
+  minecraft:
+    image: devbox/minecraft-bedrock:1.1
+    container_name: minecraft_bedrock
+    tty: true
+    restart: always
+    ports:
+      - "19132:19132/udp"
+    environment:
+      TZ: "Europe/Athens"
+      MINECRAFT_SERVER_NAME: "Gamers Pro Server"
+      MINECRAFT_GAMEMODE: "survival"
+      MINECRAFT_DIFFICULTY: "easy"
+      MINECRAFT_LEVEL_NAME: "Distant Lands"
+      MINECRAFT_WHITE_LIST: "true"
+      MINECRAFT_ALLOW_CHEATS: "true"
+      MINECRAFT_MAX_PLAYERS: "10"
+      MINECRAFT_MODS_FILE: /extras/mods.txt
+      MINECRAFT_REMOVE_OLD_MODS: "true"
+    volumes:
+      - "minecraft_worlds:/opt/minecraft/worlds"
+      - "minecraft_backups:/opt/minecraft/worlds_backup"
+      - "minecraft_whitelist:/opt/minecraft/whitelist"
+      - "minecraft_permissions:/opt/minecraft/permissions"
+      - "./mods.txt:/extras/mods.txt:ro"
